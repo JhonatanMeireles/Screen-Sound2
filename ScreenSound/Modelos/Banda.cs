@@ -10,7 +10,15 @@ internal class Banda
     }
 
     public string Nome { get; }
-    public double Media => notas.Average();
+    public double Media
+    {
+        get
+        {
+            if (notas.Count == 0)
+                return 0;
+            else return notas.Average(a => a.Nota);
+        }
+    }
     public List<Album> Albuns => albuns;
 
     public void AdicionarAlbum(Album album) 

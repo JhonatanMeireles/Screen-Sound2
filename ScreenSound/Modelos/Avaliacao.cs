@@ -12,4 +12,10 @@ internal class Avaliacao
     {
         if (Nota >= 0 || Nota <= 10) {  return true; }else { return false; }
     }
+
+    public static Avaliacao Parse(string texto)
+    {
+        int nota = int.Parse(texto);
+        return new Avaliacao(nota);
+    }
 }
