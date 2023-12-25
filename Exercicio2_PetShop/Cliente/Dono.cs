@@ -7,12 +7,12 @@ namespace Exercicio2_PetShop.Cliente
 
         public string Nome {  get; }
         public string CPF { get; }
-        public end.Endereco endereco{get; set;}
+        public end.Endereco Endereco{get;}
         public Dono(string nome, string cpf, end.Endereco endereco)
         {
             Nome = nome;
             CPF = cpf;
-            this.endereco = endereco;
+            this.Endereco = endereco;
         }
     
     
