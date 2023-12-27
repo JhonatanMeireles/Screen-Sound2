@@ -8,6 +8,7 @@ namespace Exercicio2_PetShop.Cliente
 {
     public class Pet
     {
+        
         public Pet(string nome, int idade, string raça, double peso, Dono paiDePet)
         {
             Nome = nome;
@@ -23,6 +24,7 @@ namespace Exercicio2_PetShop.Cliente
         public double Peso { get;}
         public Dono donoDoPet { get;}
 
+        
 
     }
 }

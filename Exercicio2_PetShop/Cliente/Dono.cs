@@ -4,7 +4,7 @@ namespace Exercicio2_PetShop.Cliente
 {
     public class Dono
     {
-
+        List<Pet> pets { get; } = new List<Pet>();
         public string Nome {  get; }
         public string CPF { get; }
         public end.Endereco Endereco{get;}

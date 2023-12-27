@@ -23,8 +23,8 @@ void ExibirLogo()
 void ExibirMenu() 
 {
     Console.WriteLine("\nDigite 1 para registrar Pet Parent");
-    /*Console.WriteLine("Digite 2 para registrar o álbum de uma banda");
-    Console.WriteLine("Digite 3 para mostrar todas as bandas");
+    Console.WriteLine("Digite 2 para registrar o Pet");
+    /*Console.WriteLine("Digite 3 para mostrar todas as bandas");
     Console.WriteLine("Digite 4 para avaliar uma banda");
     Console.WriteLine("Digite 5 para exibir os detalhes de uma banda");*/
     Console.WriteLine("Digite -1 para sair");
@@ -37,7 +37,10 @@ void ExibirMenu()
     {
         case 1:
             RegistrarDonoDoPet();
-            break;        
+            break;
+        case 2:
+            RegistrarDonoDoPet();
+            break;
         case -1:
             Console.WriteLine("Tchau tchau :)");
             break;
@@ -105,7 +108,21 @@ void RegistrarDonoDoPet()
 
 }
 
+void RegistrarPet()
+{
+    ExibirLogo();
+    Console.WriteLine("Informe o nome do Pet: ");
+    var nomePet = Console.ReadLine();
+    Console.WriteLine("Informe o CPF do Pet Parent");
+    var docDono =  Console.ReadLine();
+    if(petDono.TryGetValue(docDono, out var docDonoCPF))
+    {
 
+    }
+    
+    //var RegistrarPet = new Pet();
+
+}
 
 void MenuInicial()
 {
