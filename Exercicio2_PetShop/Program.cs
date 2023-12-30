@@ -10,6 +10,9 @@ Endereco endErika = new Endereco("Rua Luiza Vale", 171, "", "Del Castilho", "Rio
 Dono erika = new Dono("Érika", "12140251709", endErika);
 Pet pipoca = new Pet("Pipoca", 2, "Yorkie", 8, erika);
 petDono.Add(erika.CPF, erika);
+petAnimal.Add(pipoca.Nome, pipoca);
+
+
 void ExibirLogo()
 {
     Console.WriteLine(@"
@@ -23,9 +26,10 @@ void ExibirLogo()
 void ExibirMenu()
 {
     Console.WriteLine("\nDigite 1 para registrar Pet Parent");
-    Console.WriteLine("Digite 2 para registrar o Pet");
-    Console.WriteLine("Digite 3 para Registrar um médico veterinário");
-    Console.WriteLine("Digite 4 para agendar consulta");
+    Console.WriteLine("Digite 2 para Exibir todos os Pet Parent");
+    Console.WriteLine("Digite 3 para registrar o Pet");
+    Console.WriteLine("Digite 4 para Registrar um médico veterinário");
+    Console.WriteLine("Digite 5 para agendar consulta");
     Console.WriteLine("Digite -1 para sair");
 
     Console.Write("\nDigite a sua opção: ");
@@ -38,6 +42,9 @@ void ExibirMenu()
             RegistrarDonoDoPet();
             break;
         case 2:
+            ExibirCLientes();
+            break;
+        case 3:
             RegistrarPet();
             break;
         case -1:
@@ -51,7 +58,7 @@ void ExibirMenu()
 
 
 
-void RegistrarDonoDoPet()
+ void RegistrarDonoDoPet()
 {
 
     Console.WriteLine("Informe o CPF do dono.");
@@ -101,12 +108,28 @@ void RegistrarDonoDoPet()
 
         petDono.Add(preencherDono.CPF, preencherDono);
         Console.Clear();
+        ExibirCLientes();
         MenuInicial();
+        
     }
 
 
 
 }
+
+
+void ExibirCLientes() 
+{
+    foreach (var cliente in petDono.Values)
+    {
+
+        Console.WriteLine($"Nome: {cliente.Nome}, Documento: {cliente.CPF}");
+        ExibirEndereco(cliente);
+
+    }
+}
+
+
 
 void RegistrarPet()
 {
@@ -116,12 +139,16 @@ void RegistrarPet()
     Console.WriteLine("Informe o CPF do Pet Parent");
     var docDono = Console.ReadLine();
     Dono donoPet = petDono[docDono];
-    if (petAnimal.ContainsKey(docDono) && petAnimal.ContainsKey(nomePet)) //Corrigir essa validação, acredito que não seja containskey
+    Pet animalpet = petAnimal[nomePet];
+    var valoresPet = petAnimal.Values;
+    if (petAnimal.ContainsKey(nomePet) && animal.donoDoPet.CPF == docDono) //Corrigir essa validação, acredito que não seja containskey
     {
         
             Console.WriteLine("Informe o SKU: ");
             var sku = Console.ReadLine();
-            if (petAnimal.ContainsKey(sku))
+        var skupet = pipoca.SKUPET;
+
+            if (int.Parse(sku) == skupet)
             {
                 Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
             }
@@ -152,3 +179,8 @@ void MenuInicial()
 }
 
 MenuInicial();
+
+static void ExibirEndereco(Dono cliente)
+{
+    Console.WriteLine($"Endereço:{cliente.Endereco.Rua},número: {cliente.Endereco.Numero}, bairro: {cliente.Endereco.Bairro}, cidade: {cliente.Endereco.Cidade}, UF: {cliente.Endereco.UF} ");
+}

@@ -8,18 +8,9 @@ namespace Exercicio2_PetShop.Cliente
 {
     public class Pet
     {
-        private static int codigoatual = 0;
+        private int codigoatual = 0;
 
 
-        public Pet(string nome, int idade, string raca, double peso, Dono paiDePet)
-        {
-            Nome = nome;
-            Idade = idade;
-            Raca = raca;
-            Peso = peso;
-            this.donoDoPet = paiDePet;
-            SKUPET = (codigoatual++);
-        }
 
         public string Nome { get;}
         public int Idade { get;}
@@ -27,6 +18,16 @@ namespace Exercicio2_PetShop.Cliente
         public double Peso { get;}
         public int SKUPET {  get;}
         public Dono donoDoPet { get;}        
+        public Pet(string nome, int idade, string raca, double peso, Dono paiDePet)
+        {
+            Nome = nome;
+            Idade = idade;
+            Raca = raca;
+            Peso = peso;
+            this.donoDoPet = paiDePet;
+            this.SKUPET = codigoatual+ 1;
+            codigoatual++;
+        }
 
     }
 }
