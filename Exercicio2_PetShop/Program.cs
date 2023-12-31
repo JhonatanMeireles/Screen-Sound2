@@ -30,8 +30,9 @@ void ExibirMenu()
     Console.WriteLine("\nDigite 1 para registrar Pet Parent");
     Console.WriteLine("Digite 2 para Exibir todos os Pet Parent");
     Console.WriteLine("Digite 3 para registrar o Pet");
-    Console.WriteLine("Digite 4 para Registrar um médico veterinário");
-    Console.WriteLine("Digite 5 para agendar consulta");
+    Console.WriteLine("Digite 4 para registrar o Pet");
+    Console.WriteLine("Digite 5 para Registrar um médico veterinário");
+    Console.WriteLine("Digite 6 para agendar consulta");
     Console.WriteLine("Digite -1 para sair");
 
     Console.Write("\nDigite a sua opção: ");
@@ -147,17 +148,21 @@ void RegistrarPet()
     Console.WriteLine("Informe o nome do Pet: ");
     var nomePet = Console.ReadLine();
     Console.WriteLine("Informe o CPF do Pet Parent");
-    var docDono = Console.ReadLine();
-    Dono donoPet = petDono[docDono];
+    var docDono = Console.ReadLine();     
     bool cpfEncontrado = false;
-    foreach (var dono in petDono.Values)
-    {
-        if (dono.CPF == docDono)
+    
+        if (petDono.ContainsKey(docDono))
         {
             cpfEncontrado = true;
-            break; 
+            //Dono donoPet = petDono[docDono];//Se não houver o dono está ocorrendo erro
+            
         }
-    }
+        else
+        {
+            Console.Clear ();
+            RegistrarDonoDoPet();
+        }
+    
     //Pet animalpet = petAnimal[nomePet]; //Aqui está ocorrendo erro
     //var valoresPet = petAnimal.Values;
     if (petAnimal.ContainsKey(nomePet) && cpfEncontrado)
@@ -176,7 +181,7 @@ void RegistrarPet()
     }
     else
     {
-        //Dono donoPet = petDono[docDono];
+        Dono donoPet = petDono[docDono];
         Console.WriteLine("Digite a raça do Pet: ");
         var racaPet = Console.ReadLine();
         Console.WriteLine("Informe a idade do Pet: ");
