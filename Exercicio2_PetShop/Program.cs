@@ -1,5 +1,7 @@
 ﻿using Exercicio2_PetShop.Cliente;
 using Exercicio2_PetShop.Endereco;
+using System.Net;
+using System.Net.Http.Headers;
 
 
 Dictionary<string, Dono> petDono = new Dictionary<string, Dono>();
@@ -42,10 +44,16 @@ void ExibirMenu()
             RegistrarDonoDoPet();
             break;
         case 2:
-            ExibirCLientes();
+            ExibirCLientes(petDono);
+            Thread.Sleep(5000);
+            Console.Clear();
+            MenuInicial();
             break;
         case 3:
             RegistrarPet();
+            break;
+        case 4:
+            ExibirPets();
             break;
         case -1:
             Console.WriteLine("Tchau tchau :)");
@@ -58,7 +66,7 @@ void ExibirMenu()
 
 
 
- void RegistrarDonoDoPet()
+void RegistrarDonoDoPet()
 {
 
     Console.WriteLine("Informe o CPF do dono.");
@@ -77,7 +85,7 @@ void ExibirMenu()
         Console.WriteLine("Digite o nome do Pet Parent (Dono do pet):");
         var nomeDono = Console.ReadLine();
         Console.WriteLine("\nAgora vamos realizar o cadastro do endereço...");
-        Thread.Sleep(4000);
+        Thread.Sleep(2500);
         Console.Clear();
         ExibirLogo();
         Console.WriteLine("Digite o nome da rua do Pet parent:");
@@ -104,13 +112,12 @@ void ExibirMenu()
         var ufDono = Console.ReadLine();
 
         var preencherEnderecoDono = new Endereco(ruaDono, int.Parse(numeroResidenciaDono), compDono, bairroDono, cidadeDono, ufDono);
-        var preencherDono = new Dono(nomeDono, cpfDono, preencherEnderecoDono);
+        Dono preencherDono = new Dono(nomeDono, cpfDono, preencherEnderecoDono);
 
         petDono.Add(preencherDono.CPF, preencherDono);
         Console.Clear();
-        ExibirCLientes();
         MenuInicial();
-        
+
     }
 
 
@@ -118,15 +125,18 @@ void ExibirMenu()
 }
 
 
-void ExibirCLientes() 
+static void ExibirCLientes(Dictionary<string, Dono> petDono)
 {
     foreach (var cliente in petDono.Values)
     {
 
         Console.WriteLine($"Nome: {cliente.Nome}, Documento: {cliente.CPF}");
         ExibirEndereco(cliente);
+        Console.WriteLine("\n\n");
+        
 
     }
+    
 }
 
 
@@ -139,24 +149,34 @@ void RegistrarPet()
     Console.WriteLine("Informe o CPF do Pet Parent");
     var docDono = Console.ReadLine();
     Dono donoPet = petDono[docDono];
-    Pet animalpet = petAnimal[nomePet];
-    var valoresPet = petAnimal.Values;
-    if (petAnimal.ContainsKey(nomePet) && animal.donoDoPet.CPF == docDono) //Corrigir essa validação, acredito que não seja containskey
+    bool cpfEncontrado = false;
+    foreach (var dono in petDono.Values)
     {
-        
-            Console.WriteLine("Informe o SKU: ");
-            var sku = Console.ReadLine();
+        if (dono.CPF == docDono)
+        {
+            cpfEncontrado = true;
+            break; 
+        }
+    }
+    //Pet animalpet = petAnimal[nomePet]; //Aqui está ocorrendo erro
+    //var valoresPet = petAnimal.Values;
+    if (petAnimal.ContainsKey(nomePet) && cpfEncontrado)
+    {
+        Console.WriteLine("Informe o SKU: ");
+        var sku = Console.ReadLine();
         var skupet = pipoca.SKUPET;
 
-            if (int.Parse(sku) == skupet)
-            {
-                Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
-            }
-        
-
+        if (int.Parse(sku) == skupet)
+        {
+            Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
+            Thread.Sleep(4000);
+            Console.Clear();
+            MenuInicial();
+        }
     }
     else
     {
+        //Dono donoPet = petDono[docDono];
         Console.WriteLine("Digite a raça do Pet: ");
         var racaPet = Console.ReadLine();
         Console.WriteLine("Informe a idade do Pet: ");
@@ -171,12 +191,26 @@ void RegistrarPet()
     }
 }
 
+void ExibirPets()
+{
+    foreach(var animalzinho in petAnimal.Values)
+    {
+        Console.WriteLine($"Nome do Pet: {animalzinho.Nome}");
+        Console.WriteLine($"Raça do Pet: {animalzinho.Raca}");
+        Console.WriteLine($"Idade do Pet: {animalzinho.Idade}");
+        Console.WriteLine($"Dono do Pet: {animalzinho.donoDoPet.Nome}");
+        Console.WriteLine($"Documento do dono do Pet: {animalzinho.donoDoPet.CPF}");
+        Console.WriteLine("\n\n");
+        MenuInicial();
+    }
+}
 void MenuInicial()
 {
     ExibirLogo();
     ExibirMenu();
 
 }
+
 
 MenuInicial();
 
