@@ -150,47 +150,49 @@ void RegistrarPet()
     var nomePet = Console.ReadLine();
     Console.WriteLine("Informe o CPF do Pet Parent");
     var docDono = Console.ReadLine();
-    Dono donoPet = petDono[docDono];
+    
+    
     bool cpfEncontrado = false;
     if (petDono.ContainsKey(docDono))
     {
         cpfEncontrado = true;
-
-    }
-    else
-    {
-        Console.Clear();
-        RegistrarDonoDoPet();
-    }
-    if (petAnimal.ContainsKey(nomePet) && cpfEncontrado)
-    {
-        Console.WriteLine("Informe o SKU: ");
-        var sku = Console.ReadLine();        
-        //var skupet = pipoca.SKUPET;
-
-        if (petAnimal.Any(pet => pet.Value.donoDoPet == donoPet && pet.Value.SKUPET == int.Parse(sku)))
+        Dono donoPet = petDono[docDono];
+        if (petAnimal.ContainsKey(nomePet) && cpfEncontrado)
         {
-            Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
-            Thread.Sleep(4000);
+            Console.WriteLine("Informe o SKU: ");
+            var sku = Console.ReadLine();
+            //var skupet = pipoca.SKUPET;
+
+            if (petAnimal.Any(pet => pet.Value.donoDoPet == donoPet && pet.Value.SKUPET == int.Parse(sku)))
+            {
+                Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
+                Thread.Sleep(4000);
+                Console.Clear();
+                MenuInicial();
+            }
+        }
+        else
+        {
+
+            Console.WriteLine("Digite a raça do Pet: ");
+            var racaPet = Console.ReadLine();
+            Console.WriteLine("Informe a idade do Pet: ");
+            var idadePet = int.Parse(Console.ReadLine());
+            Console.WriteLine("Qual é o peso do Pet?");
+            var pesoPet = double.Parse(Console.ReadLine());
+
+            Pet petRegistro = new Pet(nomePet, idadePet, racaPet, pesoPet, donoPet);
+            petAnimal.Add(petRegistro.Nome, petRegistro);
             Console.Clear();
             MenuInicial();
         }
     }
     else
     {
-        
-        Console.WriteLine("Digite a raça do Pet: ");
-        var racaPet = Console.ReadLine();
-        Console.WriteLine("Informe a idade do Pet: ");
-        var idadePet = int.Parse(Console.ReadLine());
-        Console.WriteLine("Qual é o peso do Pet?");
-        var pesoPet = double.Parse(Console.ReadLine());
-
-        Pet petRegistro = new Pet(nomePet, idadePet, racaPet, pesoPet, donoPet);
-        petAnimal.Add(petRegistro.Nome, petRegistro);
         Console.Clear();
-        MenuInicial();
+        RegistrarDonoDoPet();
     }
+   
 }
 
 void ExibirPets()
