@@ -9,11 +9,11 @@ Dictionary<string, Pet> petAnimal = new Dictionary<string, Pet>();
 
 
 Endereco endErika = new Endereco("Rua Luiza Vale", 171, "", "Del Castilho", "Rio de Janeiro", "RJ");
-Dono erika = new Dono("Érika", "12140251709", endErika);
-Pet pipoca = new Pet("Pipoca", 2, "Yorkie", 8, erika);
+Dono erika = new Dono("Érika", "12140251709", endErika); petDono.Add(erika.CPF, erika);
+/*Pet pipoca = new Pet("Pipoca", 2, "Yorkie", 8, erika);
 petDono.Add(erika.CPF, erika);
 petAnimal.Add(pipoca.Nome, pipoca);
-
+*/
 
 void ExibirLogo()
 {
@@ -28,9 +28,9 @@ void ExibirLogo()
 void ExibirMenu()
 {
     Console.WriteLine("\nDigite 1 para registrar Pet Parent");
-    Console.WriteLine("Digite 2 para Exibir todos os Pet Parent");
+    Console.WriteLine("Digite 2 para exibir todos os Pet Parent");
     Console.WriteLine("Digite 3 para registrar o Pet");
-    Console.WriteLine("Digite 4 para registrar o Pet");
+    Console.WriteLine("Digite 4 para exibir os Pets");
     Console.WriteLine("Digite 5 para Registrar um médico veterinário");
     Console.WriteLine("Digite 6 para agendar consulta");
     Console.WriteLine("Digite -1 para sair");
@@ -134,44 +134,41 @@ static void ExibirCLientes(Dictionary<string, Dono> petDono)
         Console.WriteLine($"Nome: {cliente.Nome}, Documento: {cliente.CPF}");
         ExibirEndereco(cliente);
         Console.WriteLine("\n\n");
-        
+
 
     }
-    
+
 }
 
 
-
+/*Tentar colocar uma validação se o Pet já existir e for atrelado a outro dono,
+ * para tentar reaproveitar o SKU já atrelado ao Pet anteriormente */
 void RegistrarPet()
 {
 
     Console.WriteLine("Informe o nome do Pet: ");
     var nomePet = Console.ReadLine();
     Console.WriteLine("Informe o CPF do Pet Parent");
-    var docDono = Console.ReadLine();     
+    var docDono = Console.ReadLine();
+    Dono donoPet = petDono[docDono];
     bool cpfEncontrado = false;
-    
-        if (petDono.ContainsKey(docDono))
-        {
-            cpfEncontrado = true;
-            //Dono donoPet = petDono[docDono];//Se não houver o dono está ocorrendo erro
-            
-        }
-        else
-        {
-            Console.Clear ();
-            RegistrarDonoDoPet();
-        }
-    
-    //Pet animalpet = petAnimal[nomePet]; //Aqui está ocorrendo erro
-    //var valoresPet = petAnimal.Values;
+    if (petDono.ContainsKey(docDono))
+    {
+        cpfEncontrado = true;
+
+    }
+    else
+    {
+        Console.Clear();
+        RegistrarDonoDoPet();
+    }
     if (petAnimal.ContainsKey(nomePet) && cpfEncontrado)
     {
         Console.WriteLine("Informe o SKU: ");
-        var sku = Console.ReadLine();
-        var skupet = pipoca.SKUPET;
+        var sku = Console.ReadLine();        
+        //var skupet = pipoca.SKUPET;
 
-        if (int.Parse(sku) == skupet)
+        if (petAnimal.Any(pet => pet.Value.donoDoPet == donoPet && pet.Value.SKUPET == int.Parse(sku)))
         {
             Console.WriteLine("Não é possível concluir o cadastro. \nPet e Dono já estão relacionados em um mesmo cadastro existente");
             Thread.Sleep(4000);
@@ -181,7 +178,7 @@ void RegistrarPet()
     }
     else
     {
-        Dono donoPet = petDono[docDono];
+        
         Console.WriteLine("Digite a raça do Pet: ");
         var racaPet = Console.ReadLine();
         Console.WriteLine("Informe a idade do Pet: ");
@@ -190,7 +187,7 @@ void RegistrarPet()
         var pesoPet = double.Parse(Console.ReadLine());
 
         Pet petRegistro = new Pet(nomePet, idadePet, racaPet, pesoPet, donoPet);
-        petAnimal.Add(petRegistro.SKUPET.ToString(), petRegistro);
+        petAnimal.Add(petRegistro.Nome, petRegistro);
         Console.Clear();
         MenuInicial();
     }
@@ -198,7 +195,7 @@ void RegistrarPet()
 
 void ExibirPets()
 {
-    foreach(var animalzinho in petAnimal.Values)
+    foreach (var animalzinho in petAnimal.Values)
     {
         Console.WriteLine($"Nome do Pet: {animalzinho.Nome}");
         Console.WriteLine($"Raça do Pet: {animalzinho.Raca}");
