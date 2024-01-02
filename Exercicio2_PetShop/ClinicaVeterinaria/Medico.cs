@@ -8,10 +8,10 @@ namespace Exercicio2_PetShop.ClinicaVeterinaria
 {
     internal class Medico
     {
-        public Medico(string nome, int idade, string documento, end.Endereco medicoEndereco)
+        public Medico(string nome,/* int idade,*/ string documento, end.Endereco medicoEndereco)
         {
             Nome = nome;
-            Idade = idade;
+           // Idade = idade;
             Documento = documento;
             MedicoEndereco = medicoEndereco;
         }
@@ -23,6 +23,11 @@ namespace Exercicio2_PetShop.ClinicaVeterinaria
 
         public void RegistrarMedico() 
         {
+            Console.WriteLine("Digite o nome do novo médico veterinário:");
+            var nome = Console.ReadLine();
+            Console.WriteLine($"Digite o documento que autoriza a atuação do médico(a) {nome}:");
+            var documento = Console.ReadLine();
+            
 
         }
 

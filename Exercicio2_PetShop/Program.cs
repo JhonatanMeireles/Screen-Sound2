@@ -1,5 +1,6 @@
 ﻿using Exercicio2_PetShop.Cliente;
 using Exercicio2_PetShop.Endereco;
+using Exercicio2_PetShop.ClinicaVeterinaria;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -56,6 +57,8 @@ void ExibirMenu()
         case 4:
             ExibirPets();
             break;
+        case 5:
+
         case -1:
             Console.WriteLine("Tchau tchau :)");
             break;
